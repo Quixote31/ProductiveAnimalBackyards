@@ -6,7 +6,9 @@ echo.
 echo Restoring vanilla Manor Lords 0.8.104 executable...
 echo.
 
-powershell.exe -NoProfile -File "%~dp0Uninstall_ProductiveAnimalBackyards.ps1"
+REM ExecutionPolicy Bypass applies only to this PowerShell process.
+REM It does NOT permanently change the user's Windows PowerShell policy.
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0Uninstall_ProductiveAnimalBackyards.ps1"
 
 if errorlevel 1 (
     echo.

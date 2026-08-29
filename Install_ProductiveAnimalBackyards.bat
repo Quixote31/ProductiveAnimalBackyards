@@ -6,7 +6,9 @@ echo.
 echo Starting Productive Animal Backyards installer...
 echo.
 
-powershell.exe -NoProfile -File "%~dp0Install_ProductiveAnimalBackyards.ps1"
+REM ExecutionPolicy Bypass applies only to this PowerShell process.
+REM It does NOT permanently change the user's Windows PowerShell policy.
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0Install_ProductiveAnimalBackyards.ps1"
 
 if errorlevel 1 (
     echo.
