@@ -1,36 +1,56 @@
 ﻿Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
-$ExePath = Join-Path $PSScriptRoot "ManorLords-Win64-Shipping.exe"
-$BackupPath = "$ExePath.ProductiveAnimalBackyards.bak"
+$ExeName = "ManorLords-Win64-Shipping.exe"
+$ExePath = Join-Path $PSScriptRoot $ExeName
+$BackupPath = "$ExePath.ProductiveAnimalBackyards.0.8.104.bak"
 
-$OriginalHash = "37bef06c94e4fcd93fda77227bb2a88265ce1fbcb8862f98e75a720c923f2f29"
-$PatchedHash  = "249116f44709b6e1b795a939bd9ac75dafccb72e14ff0139518fb77ed916fc8f"
+$OriginalHash = "813c4909dbe8bef3481469137c66f35cc23dec11c145b6963c4739b41539e621"
+$PatchedHash  = "e1321b736be4bf4f9d3f4dbfbee9968dffb09c157be1a0d14c316683d6d77513"
 
 function Get-Sha256([string]$Path) {
     return (Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash.ToLowerInvariant()
 }
 
-if (-not (Test-Path -LiteralPath $ExePath)) { throw "Could not find game executable." }
+Write-Host ""
+Write-Host "=============================================================="
+Write-Host " Productive Animal Backyards"
+Write-Host " Restore Vanilla - Manor Lords 0.8.104"
+Write-Host "=============================================================="
+Write-Host ""
+
+if (-not (Test-Path -LiteralPath $ExePath)) {
+    throw "Could not find $ExeName."
+}
 
 $currentHash = Get-Sha256 $ExePath
 
 if ($currentHash -eq $OriginalHash) {
-    Write-Host "[OK] Executable is already vanilla."
+    Write-Host "[OK] Executable is already vanilla Manor Lords 0.8.104."
     Read-Host "Press Enter to exit"
     exit 0
 }
 
 if ($currentHash -ne $PatchedHash) {
-    throw "Current executable is unsupported or updated. Restore aborted."
+    throw "The current executable is unknown, modified, or newer. Restore aborted so an old backup cannot overwrite a different game build."
 }
 
-if (-not (Test-Path -LiteralPath $BackupPath)) { throw "Vanilla backup not found." }
-if ((Get-Sha256 $BackupPath) -ne $OriginalHash) { throw "Backup hash is invalid." }
+if (-not (Test-Path -LiteralPath $BackupPath)) {
+    throw "The verified Manor Lords 0.8.104 backup was not found."
+}
+
+if ((Get-Sha256 $BackupPath) -ne $OriginalHash) {
+    throw "The backup does not match the verified vanilla Manor Lords 0.8.104 executable."
+}
 
 Copy-Item -LiteralPath $BackupPath -Destination $ExePath -Force
 
-if ((Get-Sha256 $ExePath) -ne $OriginalHash) { throw "Restore verification failed." }
+if ((Get-Sha256 $ExePath) -ne $OriginalHash) {
+    throw "Restore verification failed."
+}
 
-Write-Host "[OK] Vanilla Manor Lords 0.8.100 executable restored."
+Write-Host "[OK] Vanilla Manor Lords 0.8.104 executable restored."
+Write-Host ""
+Write-Host "Older game-version backups were not touched."
+Write-Host ""
 Read-Host "Press Enter to exit"

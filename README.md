@@ -1,6 +1,6 @@
 # Productive Animal Backyards
 
-**2× faster vanilla animal backyard production for Manor Lords 0.8.100.**
+**2× faster vanilla animal backyard production for Manor Lords 0.8.104.**
 
 Productive Animal Backyards reduces the vanilla production cycle of **Chicken Coops, Goat Pens, and Pig Pens** while preserving the game's original output quantities and production logic.
 
@@ -20,7 +20,7 @@ Apiaries are intentionally not modified.
 
 ## Requirements
 
-- Manor Lords **0.8.100**
+- Manor Lords **0.8.104**
 - Windows
 - UE4SS is **not required**
 
@@ -31,11 +31,17 @@ Apiaries are intentionally not modified.
 3. Double-click `Install_ProductiveAnimalBackyards.bat`.
 4. Launch Manor Lords normally.
 
-The installer verifies the exact supported executable and creates a vanilla backup before patching.
+The installer verifies the exact supported executable and creates a **version-specific vanilla backup** before patching.
 
 ## Uninstall
 
 Double-click `Uninstall_ProductiveAnimalBackyards.bat`.
+
+The current 0.8.104 backup is stored as:
+
+`ManorLords-Win64-Shipping.exe.ProductiveAnimalBackyards.0.8.104.bak`
+
+Older backups are left untouched.
 
 ## Security and transparency
 
@@ -47,26 +53,30 @@ The installer:
 - does **not** access the network
 - does **not** disable antivirus
 - does **not** request administrator privileges
-- modifies only **12 bytes total**
-- verifies the vanilla and patched executable hashes
+- verifies the exact supported executable before patching
+- creates and verifies a vanilla backup
+- writes only the three verified 4-byte patch locations
+- verifies the final patched executable
 
-Because it modifies the local game executable, some antivirus products may still report a heuristic warning.
+Because it modifies the user's local game executable, some antivirus products may still report a heuristic warning.
 
 **Do not disable your antivirus if you are uncomfortable running it.** Use the script-free BPS version from Nexus Mods instead.
 
-### Supported executable
+## Supported executable
 
-Vanilla SHA-256:
+Manor Lords 0.8.104 vanilla:
 
-`37bef06c94e4fcd93fda77227bb2a88265ce1fbcb8862f98e75a720c923f2f29`
+`813c4909dbe8bef3481469137c66f35cc23dec11c145b6963c4739b41539e621`
 
-Patched SHA-256:
+Patched:
 
-`249116f44709b6e1b795a939bd9ac75dafccb72e14ff0139518fb77ed916fc8f`
+`e1321b736be4bf4f9d3f4dbfbee9968dffb09c157be1a0d14c316683d6d77513`
 
 ## Game updates
 
-This release supports **Manor Lords 0.8.100 only**. Do not force it onto newer builds.
+This release supports **Manor Lords 0.8.104 only**.
+
+Do not force it onto a newer build and never restore an old game-version backup over a newer executable.
 
 ## Disclaimer
 
